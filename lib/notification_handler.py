@@ -50,7 +50,7 @@ class CustomNotificationHandler:
 
         flight_schedule_message = (
             f"Successfully scheduled the following flights to check in for "
-            f"{self._get_account_name()}"
+            f"{self._get_account_name()} \n"
             
             
         )
@@ -86,14 +86,14 @@ class CustomNotificationHandler:
             f"Successfully checked in to flight from '{flight.departure_airport}' to "
             f"'{flight.destination_airport}' for {self._get_account_name()}!\n"
         )
-
+        
         for flight_info in boarding_pass["flights"]:
             for passenger in flight_info["passengers"]:
                 success_message += (
                     f"{passenger['name']} got "
                     f"{passenger['boardingGroup']}{passenger['boardingPosition']}!\n"
                 )
-
+                logger.debug(success_message)
         logger.debug("Sending successful check-in notification...")
         self.send_notification(success_message, NotificationLevel.INFO)
 
