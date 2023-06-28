@@ -36,48 +36,48 @@ def search_log_realtime():
                 log_content = file.read()
 
             # Search for the specified log entry
-if "[notification_handler]:" in log_content:
-    log_lines = log_content.split("\n")
-    for line in log_lines:
-        if "[notification_handler]:" in line:
-            log_entry = line[line.index("[notification_handler]:") + len("[notification_handler]:"):].strip()
-
-            # Create a container with a border
-            with st.container():
-                # Add a CSS style to the container for a border and padding
-                st.markdown(
-                    f'<style>.css-1b8my6r{{border: 0.5px solid #000000; padding: 10px;}}</style>',
-                    unsafe_allow_html=True
-                )
-
-                # Add ASCII airplane, separator, and log entry
-                st.markdown(
-                    """
-                    <pre style="color: #304CB2;">
-   __  _
-  \ `/ |
-   \__`!
-   / ,' `-.__________________
-  '-'\_____                LI`-.
-     <____()-=O=O=O=O=O=[]====--)===-
-       `.___ ,-----,_______...-'
-            /    .'
-           /   .'
-          /  .'         
-          `-'
-                    </pre>
-                    """,
-                    unsafe_allow_html=True
-                )
-                st.markdown(f'<span class="css-1b8my6r">=O=O=O=O=O=[]====--)===- {log_entry}</span>', unsafe_allow_html=True)
-
-            return
+            # Search for the specified log entry
+            if "[notification_handler]:" in log_content:
+                log_lines = log_content.split("\n")
+                for line in log_lines:
+                    if "[notification_handler]:" in line:
+                        log_entry = line[line.index("[notification_handler]:") + len("[notification_handler]:"):].strip()
+            
+                        # Create a container with a border
+                        with st.container():
+                            # Add a CSS style to the container for a border and padding
+                            st.markdown(
+                                f'<style>.css-1b8my6r{{border: 0.5px solid #000000; padding: 10px;}}</style>',
+                                unsafe_allow_html=True
+                            )
+            
+                            # Add ASCII airplane, separator, and log entry
+                            st.markdown(
+                                """
+                                <pre style="color: #304CB2;">
+               __  _
+              \ `/ |
+               \__`!
+               / ,' `-.__________________
+              '-'\_____                LI`-.
+                 <____()-=O=O=O=O=O=[]====--)===-
+                   `.___ ,-----,_______...-'
+                        /    .'
+                       /   .'
+                      /  .'         
+                      `-'
+                                </pre>
+                                """,
+                                unsafe_allow_html=True
+                            )
+                            st.markdown(f'<span class="css-1b8my6r">=O=O=O=O=O=[]====--)===- {log_entry}</span>', unsafe_allow_html=True)
+            
+                        return
 
         except Exception as e:
             st.write(f'An error occurred while reading the log file: {str(e)}')
 
         time.sleep(10)
-
 
 # Create an instance of NotificationHandler and pass the flight_retriever instance to it
 log_file_path = "logs/auto-southwest-check-in.log"
