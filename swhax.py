@@ -29,7 +29,6 @@ def display_log_content():
     except Exception as e:
         st.write(f'An error occurred while reading the log file: {str(e)}')
 
-# Function to search for the specified log entry in real-time
 def search_log_realtime():
     while search_realtime:
         try:
@@ -41,15 +40,44 @@ def search_log_realtime():
                 log_lines = log_content.split("\n")
                 for line in log_lines:
                     if "[notification_handler]:" in line:
-                        log_entry = line[line.index("[notification_handler]:") + len("[notification_handler]:"):]
-                        st.markdown('**Real-time Log Entry Found:**')
-                        st.markdown(log_entry.strip())
-                        return
+                        log_entry = line[line.index("[notification_handler]:") + len("[notification_handler]:"):].strip()
+            
+                        # Create a container with a border
+                        with st.container():
+                            # Add a CSS style to the container for a border and padding
+                            st.markdown(
+                                f'<style>.css-1b8my6r{{border: 0.5px solid #000000; padding: 10px;}}</style>',
+                                unsafe_allow_html=True
+                            )
+            
+                            # Add ASCII airplane and log entry
+                            st.markdown(
+                                """
+                                <pre style="color: #304CB2;">
+   __  _
+  \ `/ |
+   \__`!
+   / ,' `-.__________________
+  '-'\_____                LI`-.
+     <____()-=O=O=O=O=O=[]====--)
+       `.___ ,-----,_______...-'
+            /    .'
+           /   .'
+          /  .'         
+          `-'
+                    </pre>
+                    """,
+                    unsafe_allow_html=True
+                )
+                st.markdown(f'<span class="css-1b8my6r">{log_entry}</span>', unsafe_allow_html=True)
+
+            return
 
         except Exception as e:
             st.write(f'An error occurred while reading the log file: {str(e)}')
 
         time.sleep(10)
+
 
 # Create an instance of NotificationHandler and pass the flight_retriever instance to it
 log_file_path = "logs/auto-southwest-check-in.log"
