@@ -51,7 +51,7 @@ def search_log_realtime():
                             )
             
                             # Add ASCII airplane and log entry
-                            st.markdown(
+                            st.code(
                                 """
                                 <pre style="color: #304CB2;">
    __  _
