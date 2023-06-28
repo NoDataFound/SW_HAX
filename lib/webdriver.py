@@ -158,34 +158,35 @@ class WebDriver:
         """
         #chromedriver_path = "/Users/0xdeadbeef/Repositories/SW_HAX/chromedriver"
         #chrome_version = "109"
+max_attempts = 3
+attempts = 0
+chromedriver_path = "https://github.com/NoDataFound/SW_HAX/raw/main/chromedriver"
 
-        max_attempts = 3
-        attempts = 0
-        chromedriver_path = "https://github.com/NoDataFound/SW_HAX/raw/main/chromedriver"
+# Create a ChromeDriver service using the specified path
+driver_service = Service(chromedriver_path)
 
-        # Create a ChromeDriver service using the specified path
-        driver_service = Service(chromedriver_path)
-        while attempts < max_attempts:
-            try:
-               driver = Chrome(
-                   service=driver_service,
-                   options=self._get_options(),
-                   seleniumwire_options=self.seleniumwire_options,
-               )
-            return driver
-            except Exception as err:
-                logger.debug(
-                    "An exception occured when initializing the webdriver: Name: %s. Error: %s",
-                    type(err).__name__,
-                    err,
-                )
-                attempts += 1
-                logger.debug("%d more attempts", max_attempts - attempts)
-                error = err
+while attempts < max_attempts:
+    try:
+        driver = Chrome(
+            service=driver_service,
+            options=self._get_options(),
+            seleniumwire_options=self.seleniumwire_options,
+        )
+        break  # Exit the loop if the driver is successfully created
+    except Exception as err:
+        logger.debug(
+            "An exception occurred when initializing the webdriver: Name: %s. Error: %s",
+            type(err).__name__,
+            err,
+        )
+        attempts += 1
+        logger.debug("%d more attempts", max_attempts - attempts)
+        error = err
 
-        raise RuntimeError(
-            f"Failed to initialize the webdriver after {max_attempts} attempts"
-        ) from error
+else:
+    raise RuntimeError(
+        f"Failed to initialize the webdriver after {max_attempts} attempts"
+    )
 
     def _wait_for_response(self, driver: Chrome, response_num: int) -> Response:
         """
