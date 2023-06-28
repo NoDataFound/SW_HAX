@@ -52,23 +52,21 @@ def search_log_realtime():
                             )
             
                             # Add ASCII airplane, separator, and log entry
-                            st.markdown(
+                            st.code(
                                 """
-                                <pre style="color: #304CB2;">
+                                
                __  _
               \ `/ |
                \__`!
                / ,' `-.__________________
-              '-'\_____                LI`-.
+              '-'\_____                23`-.
                  <____()-=O=O=O=O=O=[]====--)===-
                    `.___ ,-----,_______...-'
                         /    .'
                        /   .'
                       /  .'         
                       `-'
-                                </pre>
-                                """,
-                                unsafe_allow_html=True
+                         """
                             )
                             st.markdown(f'<span class="css-1b8my6r">=O=O=O=O=O=[]====--)===- {log_entry}</span>', unsafe_allow_html=True)
             
