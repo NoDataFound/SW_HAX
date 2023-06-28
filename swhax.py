@@ -21,9 +21,9 @@ def display_log_content():
             log_lines = log_content.split("\n")
             for line in log_lines:
                 if "[notification_handler]:" in line:
-                    log_entry = line.strip()
+                    log_entry = line[line.index("[notification_handler]:") + len("[notification_handler]:"):]
                     st.markdown('**Desired Log Entry:**')
-                    st.code(log_entry)
+                    st.code(log_entry.strip())
                     break
 
     except Exception as e:
@@ -41,9 +41,9 @@ def search_log_realtime():
                 log_lines = log_content.split("\n")
                 for line in log_lines:
                     if "[notification_handler]:" in line:
-                        log_entry = line.strip()
+                        log_entry = line[line.index("[notification_handler]:") + len("[notification_handler]:"):]
                         st.markdown('**Real-time Log Entry Found:**')
-                        st.code(log_entry)
+                        st.code(log_entry.strip())
                         return
 
         except Exception as e:
@@ -86,11 +86,11 @@ search_realtime = st.sidebar.checkbox('Real Time')
 if st.sidebar.button('Run Checkin'):
     if confirmation_number and first_name and last_name:
         st.markdown('Running the check-in process...')
-        arguments = [confirmation_number, first_name, last_name]
-        st.sidebar.write(arguments)
+        arguments = [confirmation_number, first_name, last_name, "--verbose"]
+        st.write(arguments)
         try:
             output = main(arguments)
-            st.sidebar.markdown('Check-in process completed.')
+            st.markdown('Check-in process completed.')
 
             # Display output in the main page
             st.write(f'Output:\n{output}')
@@ -101,7 +101,7 @@ if st.sidebar.button('Run Checkin'):
                 if phrase in output:
                     st.markdown(f"**{phrase}**")
 
-            # Refresh the log file content
+            # Refresh log file content
             display_log_content()
 
         except Exception as e:
@@ -114,6 +114,13 @@ if st.sidebar.button('Run Checkin'):
 if st.button('Refresh Log'):
     display_log_content()
 
+# Real-time log search
+if search_realtime:
+    search_log_realtime()
+
+# Display log file content if the checkbox is checked
+if show_log:
+    display_log_content()
 # Real-time log search
 if search_realtime:
     search_log_realtime()
