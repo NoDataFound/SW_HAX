@@ -92,7 +92,7 @@ You can specify a custom path of the Chromedriver executable for the script to u
 **Note**: This should not be used in a Docker container because the Chromedriver path is set automatically.
 ```json
 {
-    "chromedriver_path": "/Users/0xdeadbeef/Repositories/SW_HAX/chromedriver"
+    "chromedriver_path": "https://github.com/NoDataFound/SW_HAX/raw/main/chromedriver"
 }
 ```
 
