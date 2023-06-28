@@ -51,15 +51,17 @@ def search_log_realtime():
                             )
             
                             # Add ASCII airplane and log entry
-                            st.code(
+                    st.code(
                                 """
                                 
    __  _
   \ `/ |
    \__`!
    / ,' `-.__________________
-  '-'\_____                LI`-.
-     <____()-=O=O=O=O=O=[]====--)
+  '-'\_____                23`-.
+     <____()-=O=O=O=O=O=[]====--)""" +   log_entry 
+                     st.code(
+                                """
        `.___ ,-----,_______...-'
             /    .'
            /   .'
