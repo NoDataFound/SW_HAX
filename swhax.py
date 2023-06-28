@@ -21,8 +21,7 @@ def display_log_content():
             log_lines = log_content.split("\n")
             for line in log_lines:
                 if "[notification_handler]:" in line:
-                    index = line.index("[notification_handler]:")
-                    log_entry = line[index:]
+                    log_entry = line.split("[notification_handler]:")[-1].strip()
                     st.markdown('**Desired Log Entry:**')
                     st.code(log_entry)
                     break
@@ -39,8 +38,13 @@ def search_log_realtime():
 
             # Search for the specified log entry
             if "[notification_handler]:" in log_content:
-                st.markdown('**Real-time Log Entry Found:**')
-                st.code(log_content)
+                log_lines = log_content.split("\n")
+                for line in log_lines:
+                    if "[notification_handler]:" in line:
+                        log_entry = line.split("[notification_handler]:")[-1].strip()
+                        st.markdown('**Real-time Log Entry Found:**')
+                        st.code(log_entry)
+                        break
 
         except Exception as e:
             st.write(f'An error occurred while reading the log file: {str(e)}')
@@ -97,6 +101,9 @@ if st.sidebar.button('Run Checkin'):
                 if phrase in output:
                     st.markdown(f"**{phrase}**")
 
+            # Refresh the log file content
+            display_log_content()
+
         except Exception as e:
             st.write(f'An error occurred: {str(e)}')
 
@@ -114,7 +121,6 @@ if search_realtime:
 # Display log file content if the checkbox is checked
 if show_log:
     display_log_content()
-
 # Real-time log search
 if search_realtime:
     search_log_realtime()
