@@ -43,7 +43,7 @@ def search_log_realtime():
                     if "[notification_handler]:" in line:
                         log_entry = line[line.index("[notification_handler]:") + len("[notification_handler]:"):]
                         st.markdown('**Real-time Log Entry Found:**')
-                        st.write(log_entry.strip())
+                        st.markdown(log_entry.strip())
                         return
 
         except Exception as e:
