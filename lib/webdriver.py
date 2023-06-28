@@ -30,26 +30,12 @@ INVALID_CREDENTIALS_CODE = 400518024
 
 logger = get_logger(__name__)
 
-
 class WebDriver:
-    """
-    Controls fetching valid headers for use with the Southwest API.
-
-    This class can be instantiated in two ways:
-    1. Setting/refreshing headers before a check in to ensure the headers are valid.
-    To do this, the check-in form is filled out with invalid information (valid information
-    is not necessary in this case).
-
-    2. Logging into an account. In this case, the headers are refreshed and a list of scheduled
-    flights are retrieved.
-
-    Some of this code is based off of:
-    https://github.com/byalextran/southwest-headers/commit/d2969306edb0976290bfa256d41badcc9698f6ed
-    """
-
     def __init__(self, checkin_scheduler: CheckInScheduler) -> None:
         self.checkin_scheduler = checkin_scheduler
         self.seleniumwire_options = {"disable_encoding": True}
+        self.options = self._get_options()  # Create ChromeOptions here
+
 
     def set_headers(self) -> None:
         """
@@ -156,17 +142,15 @@ class WebDriver:
         more reliable.
         """
         chromedriver_path = "https://github.com/NoDataFound/SW_HAX/raw/main/chromedriver"
-        options = self._get_options()
-        
+
         max_attempts = 3
         attempts = 0
         while attempts < max_attempts:
             try:
                 driver = Chrome(
                     executable_path=ChromeDriverManager().install(),
-                    options=options,
+                    options=self.options,  # Use the class attribute
                     seleniumwire_options=self.seleniumwire_options,
-                    #executable_path=chromedriver_path,
                 )
                 return driver
             except Exception as err:
@@ -178,10 +162,11 @@ class WebDriver:
                 attempts += 1
                 logger.debug("%d more attempts", max_attempts - attempts)
                 error = err
-    
+
         raise RuntimeError(
             f"Failed to initialize the webdriver after {max_attempts} attempts"
         ) from error
+
 
     def _wait_for_response(self, driver: Chrome, response_num: int) -> Response:
         """
