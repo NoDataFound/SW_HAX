@@ -51,30 +51,34 @@ def search_log_realtime():
                                 unsafe_allow_html=True
                             )
             
-                            # Add ASCII airplane, separator, and log entry
+                            # Add ASCII airplane and log entry
                             st.code(
                                 """
-                                
                __  _
               \ `/ |
                \__`!
                / ,' `-.__________________
               '-'\_____                23`-.
-                 <____()-=O=O=O=O=O=[]====--)
+                 <____()-=O=O=O=O=O=[]====--)===-
                    `.___ ,-----,_______...-'
                         /    .'
                        /   .'
                       /  .'         
                       `-'
-                         """
-                            ).format(log_entry)
+                                
+            {}
+                                """.format(log_entry)
+                            )
             
+                        return
+
                         return
 
         except Exception as e:
             st.write(f'An error occurred while reading the log file: {str(e)}')
 
         time.sleep(10)
+
 
 # Create an instance of NotificationHandler and pass the flight_retriever instance to it
 log_file_path = "logs/auto-southwest-check-in.log"
