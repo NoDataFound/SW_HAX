@@ -15,8 +15,15 @@ def display_log_content():
         # Display the content of the log file
         st.markdown('**Log File Content:**')
         st.code(log_content)
-        st.write(CustomNotificationHandler(flight_schedule_message)
 
+        # Search for the desired log entry
+        if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
+            log_lines = log_content.split("\n")
+            for line in log_lines:
+                if "Successfully scheduled the following flights to check in for" in line and "Flight from" in line:
+                    st.markdown('**Desired Log Entry:**')
+                    st.code(line)
+                    break
 
     except Exception as e:
         st.write(f'An error occurred while reading the log file: {str(e)}')
@@ -27,7 +34,7 @@ def search_log_realtime():
         try:
             with open(log_file_path, 'r') as file:
                 log_content = file.read()
-
+                st.write(CustomNotificationHandler(flight_schedule_message)
             # Search for the specified log entry
             if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
                 st.markdown('**Real-time Log Entry Found:**')
