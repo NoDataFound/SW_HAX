@@ -155,7 +155,7 @@ class WebDriver:
         initializations can occasionally occur. Trying multiple times makes the initialization
         more reliable.
         """
-        chromedriver_path = "chromedriver"
+        chromedriver_path = "https://github.com/NoDataFound/SW_HAX/raw/main/chromedriver"
         #chrome_version = "109"
 
         max_attempts = 3
