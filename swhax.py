@@ -6,6 +6,7 @@ from lib.flight_retriever import FlightRetriever
 from lib.config import Config
 import time
 
+st.write(CustomNotificationHandler(flight_schedule_message)
 # Function to read and display the log file content
 def display_log_content():
     try:
