@@ -58,7 +58,7 @@ class CustomNotificationHandler:
                 f"{flight.departure_time} UTC\n"
             )
 
-        logger.debug("Sending new flights notification")
+        logger.debug(flight_schedule_message)
         self.send_notification(flight_schedule_message, NotificationLevel.INFO)
 
     def failed_reservation_retrieval(self, error: RequestError, confirmation_number: str) -> None:
