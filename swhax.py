@@ -60,15 +60,14 @@ def search_log_realtime():
                \__`!
                / ,' `-.__________________
               '-'\_____                23`-.
-                 <____()-=O=O=O=O=O=[]====--)===-
+                 <____()-=O=O=O=O=O=[]====--)
                    `.___ ,-----,_______...-'
                         /    .'
                        /   .'
                       /  .'         
                       `-'
                          """
-                            )
-                            st.markdown(f'<span class="css-1b8my6r">=O=O=O=O=O=[]====--)===- {log_entry}</span>', unsafe_allow_html=True)
+                            ).format(log_entry)
             
                         return
 
