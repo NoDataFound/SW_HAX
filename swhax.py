@@ -6,7 +6,7 @@ from lib.flight_retriever import FlightRetriever
 from lib.config import Config
 
 # Create an instance of NotificationHandler and pass the flight_retriever instance to it
-log_file_path = "/Users/0xdeadbeef/Repositories/SW_HAX/logs/auto-southwest-check-in.log"
+log_file_path = "logs/auto-southwest-check-in.log"
 config =Config()
 flight_retriever = FlightRetriever(config)
 notification_handler = CustomNotificationHandler(flight_retriever)
