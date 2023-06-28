@@ -50,7 +50,7 @@ class CustomNotificationHandler:
 
         flight_schedule_message = (
             f"Successfully scheduled the following flights to check in for "
-            f"{self._get_account_name()}:\n"
+            f"{self._get_account_name()}"
             
             
         )
