@@ -1,0 +1,26 @@
+[tool.black]
+line-length = 100
+target-version = ['py37']
+
+[tool.isort]
+line_length = 100
+
+[tool.coverage.run]
+branch = true
+omit = ["**/venv/*"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    # The default must be restated because the `exclude_lines` option overrides it.
+    "pragma: no cover",
+
+    # This is not feasible to test as it requires some really wonky module loading.
+    'if __name__ == "__main__":',
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    # Currently imported by seleniumwire. Remove once seleniumwire removes it
+    "ignore:pkg_resources is deprecated:DeprecationWarning"
+]
