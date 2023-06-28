@@ -15,11 +15,11 @@ def display_log_content():
         # Display the content of the log file
         st.markdown('**Log File Content:**')
         st.code(log_content)
-
+        st.write(CustomNotificationHandler(flight_schedule_message)
         # Search for the desired log entry
         if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
             log_lines = log_content.split("\n")
-            st.write(log_lines)
+            
             for line in log_lines:
                 
                 if "Successfully scheduled the following flights to check in for" in line and "Flight from" in line:
