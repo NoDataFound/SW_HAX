@@ -6,7 +6,7 @@ from lib.flight_retriever import FlightRetriever
 from lib.config import Config
 import time
 
-st.write(CustomNotificationHandler(flight_schedule_message)
+
 # Function to read and display the log file content
 def display_log_content():
     try:
@@ -81,7 +81,7 @@ search_realtime = st.sidebar.checkbox('Real Time')
 if st.sidebar.button('Run Checkin'):
     if confirmation_number and first_name and last_name:
         st.markdown('Running the check-in process...')
-        arguments = [confirmation_number, first_name, last_name, "--verbose"]
+        arguments = [confirmation_number, first_name, last_name]
         st.write(arguments)
         try:
             output = main(arguments)
