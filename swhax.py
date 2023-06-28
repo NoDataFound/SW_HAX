@@ -34,7 +34,7 @@ def search_log_realtime():
         try:
             with open(log_file_path, 'r') as file:
                 log_content = file.read()
-                st.write(CustomNotificationHandler(flight_schedule_message)
+                
             # Search for the specified log entry
             if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
                 st.markdown('**Real-time Log Entry Found:**')
