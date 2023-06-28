@@ -7,6 +7,7 @@ from lib.config import Config
 import time
 
 # Function to read and display the log file content
+# Function to read and display the log file content
 def display_log_content():
     try:
         with open(log_file_path, 'r') as file:
@@ -18,13 +19,30 @@ def display_log_content():
 
     except Exception as e:
         st.write(f'An error occurred while reading the log file: {str(e)}')
+
+# Function to search for the specified log entry in real-time
+def search_log_realtime():
+    while search_realtime:
+        try:
+            with open(log_file_path, 'r') as file:
+                log_content = file.read()
+
+            # Search for the specified log entry
+            if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
+                st.markdown('**Real-time Log Entry Found:**')
+                st.code(log_content)
+
+        except Exception as e:
+            st.write(f'An error occurred while reading the log file: {str(e)}')
+
+        time.sleep(10)
+
 # Create an instance of NotificationHandler and pass the flight_retriever instance to it
 log_file_path = "logs/auto-southwest-check-in.log"
-config =Config()
+config = Config()
 flight_retriever = FlightRetriever(config)
 notification_handler = CustomNotificationHandler(flight_retriever)
-#st.write(notification_handler)
-#st.write(flight_retriever)
+
 # Add logo and title to sidebar
 st.sidebar.markdown(
     """
@@ -43,8 +61,10 @@ st.markdown('----')
 confirmation_number = st.sidebar.text_input('Confirmation Number')
 first_name = st.sidebar.text_input('First Name')
 last_name = st.sidebar.text_input('Last Name')
+
 # Checkbox to show log
 show_log = st.sidebar.checkbox('Show Log')
+
 # Button to start the script
 if st.sidebar.button('Run Checkin'):
     if confirmation_number and first_name and last_name:
@@ -76,8 +96,32 @@ else:
 if st.button('Refresh Log'):
     display_log_content()
 
-# Display log content periodically
+# Button to toggle real-time log search
+search_realtime = False
+if st.button('Real Time'):
+    search_realtime = not search_realtime
+    if search_realtime:
+        st.write('Real-time log search started.')
+        search_log_realtime()
+    else:
+        st.write('Real-time log search stopped.')
+
+# Button to download the log file
+if st.button('Download Log'):
+    try:
+        with open(log_file_path, 'r') as file:
+            log_content = file.read()
+
+        st.download_button(
+            label="Download Log",
+            data=log_content.encode('utf-8'),
+            file_name='auto-southwest-check-in.log',
+            mime='text/plain'
+        )
+
+    except Exception as e:
+        st.write(f'An error occurred while reading the log file: {str(e)}')
+
+# Show log content if the checkbox is checked
 if show_log:
-    while True:
-        display_log_content()
-        time.sleep(10)
+    display_log_content()
