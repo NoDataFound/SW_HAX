@@ -6,7 +6,6 @@ from lib.flight_retriever import FlightRetriever
 from lib.config import Config
 import time
 
-
 # Function to read and display the log file content
 def display_log_content():
     try:
@@ -18,12 +17,14 @@ def display_log_content():
         st.code(log_content)
 
         # Search for the desired log entry
-        if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
+        if "[notification_handler]:" in log_content:
             log_lines = log_content.split("\n")
             for line in log_lines:
-                if "Successfully scheduled the following flights to check in for" in line and "Flight from" in line:
+                if "[notification_handler]:" in line:
+                    index = line.index("[notification_handler]:")
+                    log_entry = line[index:]
                     st.markdown('**Desired Log Entry:**')
-                    st.code(line)
+                    st.code(log_entry)
                     break
 
     except Exception as e:
@@ -35,9 +36,9 @@ def search_log_realtime():
         try:
             with open(log_file_path, 'r') as file:
                 log_content = file.read()
-                
+
             # Search for the specified log entry
-            if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
+            if "[notification_handler]:" in log_content:
                 st.markdown('**Real-time Log Entry Found:**')
                 st.code(log_content)
 
@@ -81,7 +82,7 @@ search_realtime = st.sidebar.checkbox('Real Time')
 if st.sidebar.button('Run Checkin'):
     if confirmation_number and first_name and last_name:
         st.markdown('Running the check-in process...')
-        arguments = [confirmation_number, first_name, last_name]
+        arguments = [confirmation_number, first_name, last_name, "--verbose"]
         st.write(arguments)
         try:
             output = main(arguments)
@@ -104,6 +105,14 @@ if st.sidebar.button('Run Checkin'):
 
 # Button to refresh the log file content
 if st.button('Refresh Log'):
+    display_log_content()
+
+# Real-time log search
+if search_realtime:
+    search_log_realtime()
+
+# Display log file content if the checkbox is checked
+if show_log:
     display_log_content()
 
 # Real-time log search
