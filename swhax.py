@@ -16,6 +16,15 @@ def display_log_content():
         st.markdown('**Log File Content:**')
         st.code(log_content)
 
+        # Search for the desired log entry
+        if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
+            log_lines = log_content.split("\n")
+            for line in log_lines:
+                if "Successfully scheduled the following flights to check in for" in line and "Flight from" in line:
+                    st.markdown('**Desired Log Entry:**')
+                    st.code(line)
+                    break
+
     except Exception as e:
         st.write(f'An error occurred while reading the log file: {str(e)}')
 
@@ -91,17 +100,15 @@ if st.sidebar.button('Run Checkin'):
 
     else:
         st.sidebar.warning('Please input all required fields')
-else:
-    st.markdown('Waiting for user input...')
 
 # Button to refresh the log file content
 if st.button('Refresh Log'):
     display_log_content()
 
-# Show log content if the checkbox is checked
-if show_log:
-    display_log_content()
-
 # Real-time log search
 if search_realtime:
     search_log_realtime()
+
+# Display log file content if the checkbox is checked
+if show_log:
+    display_log_content()
