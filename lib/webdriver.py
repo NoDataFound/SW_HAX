@@ -5,7 +5,8 @@ import re
 import time
 from typing import TYPE_CHECKING, Any, Dict
 from webdriver_manager.chrome import ChromeDriverManager
-
+from selenium.webdriver import Chrome
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -160,15 +161,17 @@ class WebDriver:
 
         max_attempts = 3
         attempts = 0
+        chromedriver_path = "https://github.com/NoDataFound/SW_HAX/raw/main/chromedriver"
+
+        # Create a ChromeDriver service using the specified path
+        driver_service = Service(chromedriver_path)
         while attempts < max_attempts:
             try:
-                driver = Chrome(
-                    #driver_executable_path=chromedriver_path,
-                    executable_path=ChromeDriverManager().install(),
-                    options=self._get_options(),
-                    seleniumwire_options=self.seleniumwire_options,
-                    #version_main=chrome_version,
-                )
+               driver = Chrome(
+                   service=driver_service,
+                   options=self._get_options(),
+                   seleniumwire_options=self.seleniumwire_options,
+               )
                 return driver
             except Exception as err:
                 logger.debug(
