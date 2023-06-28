@@ -21,7 +21,7 @@ def display_log_content():
             log_lines = log_content.split("\n")
             for line in log_lines:
                 if "[notification_handler]:" in line:
-                    log_entry = line.split("[notification_handler]:")[-1].strip()
+                    log_entry = line.strip()
                     st.markdown('**Desired Log Entry:**')
                     st.code(log_entry)
                     break
@@ -41,10 +41,10 @@ def search_log_realtime():
                 log_lines = log_content.split("\n")
                 for line in log_lines:
                     if "[notification_handler]:" in line:
-                        log_entry = line.split("[notification_handler]:")[-1].strip()
+                        log_entry = line.strip()
                         st.markdown('**Real-time Log Entry Found:**')
                         st.code(log_entry)
-                        break
+                        return
 
         except Exception as e:
             st.write(f'An error occurred while reading the log file: {str(e)}')
@@ -114,13 +114,6 @@ if st.sidebar.button('Run Checkin'):
 if st.button('Refresh Log'):
     display_log_content()
 
-# Real-time log search
-if search_realtime:
-    search_log_realtime()
-
-# Display log file content if the checkbox is checked
-if show_log:
-    display_log_content()
 # Real-time log search
 if search_realtime:
     search_log_realtime()
