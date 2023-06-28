@@ -155,7 +155,7 @@ class WebDriver:
         initializations can occasionally occur. Trying multiple times makes the initialization
         more reliable.
         """
-        #chromedriver_path = "/Users/0xdeadbeef/Repositories/SW_HAX/chromedriver"
+        chromedriver_path = "chromedriver"
         #chrome_version = "109"
 
         max_attempts = 3
@@ -164,7 +164,8 @@ class WebDriver:
             try:
                 driver = Chrome(
                     #driver_executable_path=chromedriver_path,
-                    executable_path=ChromeDriverManager().install(),
+                    #executable_path=ChromeDriverManager().install(),
+                    executable_path=ChromeDriverManager(chromedriver_path),
                     options=self._get_options(),
                     seleniumwire_options=self.seleniumwire_options,
                     #version_main=chrome_version,
