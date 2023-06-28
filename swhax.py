@@ -53,7 +53,7 @@ def search_log_realtime():
                             # Add ASCII airplane and log entry
                             st.code(
                                 """
-                                <pre style="color: #304CB2;">
+                                
    __  _
   \ `/ |
    \__`!
@@ -65,9 +65,8 @@ def search_log_realtime():
            /   .'
           /  .'         
           `-'
-                    </pre>
-                    """,
-                    unsafe_allow_html=True
+
+                    """
                 )
                 st.markdown(f'<span class="css-1b8my6r">{log_entry}</span>', unsafe_allow_html=True)
 
