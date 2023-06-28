@@ -7,7 +7,6 @@ from lib.config import Config
 import time
 
 # Function to read and display the log file content
-# Function to read and display the log file content
 def display_log_content():
     try:
         with open(log_file_path, 'r') as file:
@@ -65,6 +64,9 @@ last_name = st.sidebar.text_input('Last Name')
 # Checkbox to show log
 show_log = st.sidebar.checkbox('Show Log')
 
+# Checkbox for real-time log search
+search_realtime = st.sidebar.checkbox('Real Time')
+
 # Button to start the script
 if st.sidebar.button('Run Checkin'):
     if confirmation_number and first_name and last_name:
@@ -96,32 +98,10 @@ else:
 if st.button('Refresh Log'):
     display_log_content()
 
-# Button to toggle real-time log search
-search_realtime = False
-if st.button('Real Time'):
-    search_realtime = not search_realtime
-    if search_realtime:
-        st.write('Real-time log search started.')
-        search_log_realtime()
-    else:
-        st.write('Real-time log search stopped.')
-
-# Button to download the log file
-if st.button('Download Log'):
-    try:
-        with open(log_file_path, 'r') as file:
-            log_content = file.read()
-
-        st.download_button(
-            label="Download Log",
-            data=log_content.encode('utf-8'),
-            file_name='auto-southwest-check-in.log',
-            mime='text/plain'
-        )
-
-    except Exception as e:
-        st.write(f'An error occurred while reading the log file: {str(e)}')
-
 # Show log content if the checkbox is checked
 if show_log:
     display_log_content()
+
+# Real-time log search
+if search_realtime:
+    search_log_realtime()
