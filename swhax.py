@@ -20,6 +20,7 @@ def display_log_content():
         if "Successfully scheduled the following flights to check in for" in log_content and "Flight from" in log_content:
             log_lines = log_content.split("\n")
             for line in log_lines:
+                st.write(line)
                 if "Successfully scheduled the following flights to check in for" in line and "Flight from" in line:
                     st.markdown('**Desired Log Entry:**')
                     st.code(line)
