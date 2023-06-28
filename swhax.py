@@ -24,7 +24,6 @@ def display_log_content():
                 
                 if "Successfully scheduled the following flights to check in for" in line and "Flight from" in line:
                     st.markdown('**Desired Log Entry:**')
-                    st.code(line)
                     break
 
     except Exception as e:
