@@ -172,7 +172,7 @@ class WebDriver:
                    options=self._get_options(),
                    seleniumwire_options=self.seleniumwire_options,
                )
-                return driver
+            return driver
             except Exception as err:
                 logger.debug(
                     "An exception occured when initializing the webdriver: Name: %s. Error: %s",
