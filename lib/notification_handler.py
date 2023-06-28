@@ -48,9 +48,6 @@ class CustomNotificationHandler:
         if len(flights) == 0:
             return
 
-        flight_schedule_message = (
-            
-        )
         for flight in flights:
             flight_schedule_message += (
                 f"Successfully scheduled the following flights to check in for "
