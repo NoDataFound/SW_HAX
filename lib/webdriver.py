@@ -156,31 +156,29 @@ class WebDriver:
         more reliable.
         """
         chromedriver_path = "https://github.com/NoDataFound/SW_HAX/raw/main/chromedriver"
-        #chrome_version = "109"
-
+        options = self._get_options()
+        
         max_attempts = 3
         attempts = 0
         while attempts < max_attempts:
             try:
                 driver = Chrome(
-                    #driver_executable_path=chromedriver_path,
-                    #executable_path=ChromeDriverManager().install(),
-                    executable_path=ChromeDriverManager(chromedriver_path),
-                    options=self._get_options(),
+                    executable_path=ChromeDriverManager().install(),
+                    options=options,
                     seleniumwire_options=self.seleniumwire_options,
-                    #version_main=chrome_version,
+                    executable_path=chromedriver_path,
                 )
                 return driver
             except Exception as err:
                 logger.debug(
-                    "An exception occured when initializing the webdriver: Name: %s. Error: %s",
+                    "An exception occurred when initializing the webdriver: Name: %s. Error: %s",
                     type(err).__name__,
                     err,
                 )
                 attempts += 1
                 logger.debug("%d more attempts", max_attempts - attempts)
                 error = err
-
+    
         raise RuntimeError(
             f"Failed to initialize the webdriver after {max_attempts} attempts"
         ) from error
