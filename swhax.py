@@ -87,10 +87,10 @@ if st.sidebar.button('Run Checkin'):
     if confirmation_number and first_name and last_name:
         st.markdown('Running the check-in process...')
         arguments = [confirmation_number, first_name, last_name, "--verbose"]
-        st.write(arguments)
+        st.sidebar.write(arguments)
         try:
             output = main(arguments)
-            st.markdown('Check-in process completed.')
+            st.sidebar.markdown('Check-in process completed.')
 
             # Display output in the main page
             st.write(f'Output:\n{output}')
