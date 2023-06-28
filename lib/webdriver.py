@@ -163,10 +163,10 @@ class WebDriver:
         while attempts < max_attempts:
             try:
                 driver = Chrome(
-                    #executable_path=ChromeDriverManager().install(),
+                    executable_path=ChromeDriverManager().install(),
                     options=options,
                     seleniumwire_options=self.seleniumwire_options,
-                    executable_path=chromedriver_path,
+                    #executable_path=chromedriver_path,
                 )
                 return driver
             except Exception as err:
