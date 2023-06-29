@@ -23,7 +23,7 @@ def display_log_content():
                 if "[notification_handler]:" in line:
                     log_entry = line[line.index("[notification_handler]:") + len("[notification_handler]:"):]
                     st.markdown('**Desired Log Entry:**')
-                    st.code(log_entry.strip())
+                    st.code(log_entry)
                     break
 
     except Exception as e:
