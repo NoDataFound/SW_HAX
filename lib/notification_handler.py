@@ -49,6 +49,7 @@ class CustomNotificationHandler:
             return
 
         flight_schedule_message = (
+            f"\n"
             f"Successfully scheduled the following flights to check in for "
             f"{self._get_account_name()}"
             f"\n"
@@ -56,9 +57,10 @@ class CustomNotificationHandler:
         )
         for flight in flights:
             flight_schedule_message += (
-                f"Successfully scheduled the following flights to check in for "
+
                 f"Flight from {flight.departure_airport} to {flight.destination_airport} at "
-                f"{flight.departure_time} UTC\n"
+                f"{flight.departure_time} UTC"
+                 f"\n"
                 
             )
             logger.debug(flight_schedule_message)
