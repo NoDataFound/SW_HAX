@@ -93,10 +93,10 @@ class CustomNotificationHandler:
             for passenger in flight_info["passengers"]:
                 success_message += (
                     f"{passenger['name']} got "
-                    f"{passenger['boardingGroup']}{passenger['boardingPosition']}!\n"
+                    f"{passenger['boardingGroup']}{passenger['boardingPosition']}!"
                 )
                 logger.debug(success_message)
-        logger.debug("Sending successful check-in notification...")
+        logger.debug(success_message)
         self.send_notification(success_message, NotificationLevel.INFO)
 
     def failed_checkin(self, error: RequestError, flight: Flight) -> None:
